@@ -1,0 +1,65 @@
+<div class="row">
+    <div *ngIf="professorSelecionado">
+        <div class="row">
+            <div class="col-md-10">
+                <app-titulo [titulo]="'Cod. Professor: ' + professorSelecionado.id"></app-titulo>
+            </div>
+            <div class="col-md-2 mt-1">
+                <button class="btn btn-outline-danger" (click)="voltar()">Voltar</button>
+            </div>
+        </div>
+        <form>
+            <div class="form-group">
+                <label>Nome</label>
+                <input type="text" value="{{professorSelecionado.nome}}" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Disciplina</label>
+                <input type="text" value="{{professorSelecionado.disciplina}}" class="form-control" />
+            </div>
+            <div class="form-group">
+                <hr>
+                <button class="btn btn-success">Enviar</button>
+            </div>
+        </form>
+    </div>
+    <div *ngIf="!professorSelecionado">
+        <app-titulo [titulo]="titulo"></app-titulo>
+        Nenhum selecionado
+        <table class="table table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th>Visualizar</th>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Disciplina</th>
+                    <th scope="col">Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let professor of professores">
+                    <td (click)="professorSelected(professor)">
+                        <button class="btn btn-sm btn-primary">Detalhes</button>
+                    </td>
+                    <th scope="row">{{professor.id}}</th>
+                    <td>{{professor.nome}}</td>
+                    <td>{{professor.disciplina}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-warning" (click)="openModal(template)">Alunos</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #template>
+    <div class="modal-body">
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-sm btn-secondary pull-right" aria-label="Close" (click)="modalRef?.hide()">Fechar</button>
+    </div>
+</ng-template>
